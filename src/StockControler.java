@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class StockControl {
+public class StockControler {
 	private static ArrayList<Item> ItemList;
 	private int ItemID;
 
-	public StockControl() {
+	public StockControler() {
 		ItemList = new ArrayList<Item>();
 		ItemID = 0;
 	}
@@ -19,7 +19,7 @@ public class StockControl {
 		return;
 	}
 
-	public void addStock(String name, int weight) {
+	public void addStock(String name, int weight, int Amount) {
 		Item item = null;
 		item = searchItem(name);
 
@@ -28,7 +28,8 @@ public class StockControl {
 			return;
 		}
 
-		item.add(weight);
+		item.addWeight(weight);
+		item.addPrice(Amount);
 		System.out.println(name + "Ç" + weight + "kgí«â¡ÇµÇ‹ÇµÇΩÅB");
 	}
 
@@ -64,22 +65,36 @@ public class StockControl {
 
 	public void calculateUnitPrice() {
 		Item item;
-		int weight, totalPrice = 0, unitPrice;
+		int weight = 0;
+		int totalPrice = 0;
+		int unitPrice = 0;
 		String name;
-		try {
-			for (int i = 0; i < ItemList.size(); i++) {
+
+		for (int i = 0; i < ItemList.size(); i++) {
+			try {
 				item = ItemList.get(i);
 				name = item.getName();
 				weight = item.getWeight();
 				totalPrice = item.getTotalPrice();
 				unitPrice = totalPrice / weight;
+				System.out.println(weight);
 				System.out.println(name + ":" + unitPrice);
+			} catch (ArithmeticException e) {
+				System.out.println("ç›å…Ç»Çµ");
 			}
-		} catch (ArithmeticException e) {
-			System.out.println("ç›å…Ç»Çµ");
-
 		}
+		System.out.println();
 		return;
 	}
 
+	public void addStockUnderWeight(int baseWeight, int addWeight) {
+		for (int i = 0; i < ItemList.size(); i++) {
+			Item item = ItemList.get(i);
+			int itemWeight = item.getWeight();
+			if (baseWeight > itemWeight) {
+				item.addWeight(addWeight);
+			}
+		}
+		System.out.println(baseWeight + "à»â∫ÇÃç›å…Ç" + addWeight + "kgí«â¡ÇµÇ‹ÇµÇΩÅB");
+	}
 }

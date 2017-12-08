@@ -1,0 +1,4 @@
+apple 50 7500
+banana 40 8000
+cherry 30 90000
+durian 10 10000

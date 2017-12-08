@@ -28,9 +28,12 @@ public class Item {
 		return totalPrice;
 	}
 
-	public void add(int weight) {
-		this.totalWeight += weight;
-		return;
+	public void addWeight(int weight) {
+		this.totalWeight = weight;
+	}
+
+	public void addPrice(int price) {
+		this.totalPrice += price;
 	}
 
 	public void print() {
